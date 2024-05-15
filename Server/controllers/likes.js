@@ -2,11 +2,11 @@ import { db } from "../connect.js";
 import jwt from "jsonwebtoken";
 
 export const getLikes = (req,res)=>{
-    const q = "SELECT userId FROM likes WHERE postId = ?";
+    const q = "SELECT userID FROM likes WHERE postID = ?";
 
-    db.query(q, [req.query.postId], (err, data) => {
+    db.query(q, [req.query.postID], (err, data) => {
       if (err) return res.status(500).json(err);
-      return res.status(200).json(data.map(like=>like.userId));
+      return res.status(200).json(data.map(like=>like.userID));
     });
 }
 
@@ -17,10 +17,10 @@ export const addLike = (req, res) => {
   jwt.verify(token, "secretkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
 
-    const q = "INSERT INTO likes (`userId`,`postId`) VALUES (?)";
+    const q = "INSERT INTO likes (`userID`,`postID`) VALUES (?)";
     const values = [
       userInfo.id,
-      req.body.postId
+      req.body.postID
     ];
 
     db.query(q, [values], (err, data) => {
@@ -38,9 +38,9 @@ export const deleteLike = (req, res) => {
   jwt.verify(token, "secretkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
 
-    const q = "DELETE FROM likes WHERE `userId` = ? AND `postId` = ?";
+    const q = "DELETE FROM likes WHERE `userID` = ? AND `postID` = ?";
 
-    db.query(q, [userInfo.id, req.query.postId], (err, data) => {
+    db.query(q, [userInfo.id, req.query.postID], (err, data) => {
       if (err) return res.status(500).json(err);
       return res.status(200).json("Post has been disliked.");
     });
