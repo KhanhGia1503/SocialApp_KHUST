@@ -7,5 +7,4 @@ router.get("/", getRelationships);
 router.post("/", addRelationship);
 router.delete("/", deleteRelationship);
 
-
 export default router;
