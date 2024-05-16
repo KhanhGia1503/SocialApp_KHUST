@@ -3,5 +3,6 @@
     top: 70px;
     padding: 10px 20px;
     height: 100px;
+    flex:30%;
     border-style: solid ;
 }

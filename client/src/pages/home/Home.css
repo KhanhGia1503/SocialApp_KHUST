@@ -1,7 +1,10 @@
 .home{
 
 }
-
+.mid{
+    flex: 70%;
+    border-style: solid;
+}
 .a{
     display: flex;
     /* position: sticky;
