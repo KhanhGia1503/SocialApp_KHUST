@@ -1,0 +1,7 @@
+.leftbar{
+    position: sticky;
+    top: 70px;
+    padding: 10px 20px;
+    height: 100px;
+    border-style: solid ;
+}

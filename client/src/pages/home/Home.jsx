@@ -1,8 +1,24 @@
 import React from "react";
-
+import "./Home.css"
+import Navbar from "../../components/navbar/navbar.jsx";
+import Leftbar from "../../components/leftbar/Leftbar.jsx";
+import CreatePost from "../../components/createPost/CreatePost.jsx";
+import Posts from "../../components/posts/Posts.jsx";
 const Home =() => {
     return(
-        <div>Home</div>
+        <div className="home">
+            <Navbar/>
+            <div className="a">
+                <Leftbar/>
+                <div className="posts">
+                    <CreatePost/>
+                    <Posts/>
+                </div>
+            </div>
+            
+            
+        </div>
+
     )
 };
 
