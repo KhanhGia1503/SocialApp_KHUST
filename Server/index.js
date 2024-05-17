@@ -6,6 +6,7 @@ import PostsRoutes from "./routes/posts.js"
 import CommentsRoutes from "./routes/comments.js"
 import LikesRoutes from "./routes/likes.js"
 import AuthRoutes from "./routes/auth.js"
+import relationshipRoutes from "./routes/relationships.js";
 import cors from "cors"
 import cookieParser from "cookie-parser"
 import {db} from "./connect.js"
@@ -19,6 +20,8 @@ app.use("/server/users", UsersRoutes);
 app.use("/server/posts", PostsRoutes);
 app.use("/server/comments", CommentsRoutes);
 app.use("/server/likes", LikesRoutes);
+app.use("/api/relationships", relationshipRoutes);
+
 app.use("/server/auth", AuthRoutes);
 
 app.listen(8800, ()=>{
