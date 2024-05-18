@@ -7,11 +7,11 @@ const Post = ({ post }) => {
   return (
     <div className="post">
       <div className="user">
-        <img className="profilePic" src={post.profilePic} />
+        <img className="profilePic" src={`uploads/${post.profilePic}`} />
         <div className="username">{post.name}</div>
       </div>
       <div className="caption">{post.text}</div>
-      <img className="image" src={post.img} />
+      <img className="image" src={`uploads/${post.img}`} />
       <div className="interact">
         <div className="react">
           <FavoriteBorderIcon />
