@@ -15,7 +15,14 @@ import multer from "multer";
 
 //middleware
 app.use(Express.json());
-app.use(cors());//giao tiếp tài nguyên
+app.use(
+    cors({
+      origin: "http://localhost:3000",
+      credentials: true,
+      allowedHeaders: ['Content-Type', 'Authorization'],
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+    })
+  );//giao tiếp tài nguyên
 app.use(cookieParser());//đọc các cookie từ người dùng
 //setup multer
 const storage = multer.diskStorage({
