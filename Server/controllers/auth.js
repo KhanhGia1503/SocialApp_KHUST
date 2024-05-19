@@ -67,6 +67,8 @@ export const login = (req, res) => {
     // Tạo token JWT với vai trò của người dùng
     const token = jwt.sign({ id: data[0].id, role: data[0].role }, "secretkey");
 
+    const { password, ...others } = data[0]; // Loại bỏ mật khẩu từ dữ liệu người dùng
+
     // Điều hướng người dùng tùy thuộc vào vai trò của họ
     if (data[0].role === "user") {
       // Điều hướng người dùng đến trang dành cho người dùng
@@ -74,14 +76,18 @@ export const login = (req, res) => {
         httpOnly: true,
         secure: true,
         sameSite: "none"
-      }).redirect("/dashboard"); // Điều hướng đến trang dashboard của người dùng
+      }).status(200)
+      .json(others)
+      .redirect("/dashboard"); // Điều hướng đến trang dashboard của người dùng
     } else if (data[0].role === "admin") {
       // Điều hướng người dùng đến trang dành cho admin
       res.cookie("accessToken", token, {
         httpOnly: true,
         secure: true,
         sameSite: "none"
-      }).redirect("/admindashboard"); // Điều hướng đến trang dashboard của admin
+      }).status(200)
+      .json(others)
+      .redirect("/admindashboard"); // Điều hướng đến trang dashboard của admin
     } else {
       // Nếu không có vai trò nào khớp, trả về lỗi
       return res.status(403).json("Unauthorized role!");
