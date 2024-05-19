@@ -1,5 +1,6 @@
 import { db } from "../connect.js";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 
 export const getUser = (req, res) => {
   const userID = req.params.userID;
