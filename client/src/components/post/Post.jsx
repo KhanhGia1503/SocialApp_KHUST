@@ -1,6 +1,7 @@
 import React from "react";
 import "./Post.css";
 import { Link } from "react-router-dom";
+import Comment from "../comment/Comment.jsx";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CommentIcon from "@mui/icons-material/Comment";
@@ -11,6 +12,7 @@ const Post = ({ post }) => {
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(localStorage.getItem("user"))
   );
+  //like
   const [amount, setAmount] = useState("");
   const [userLike, setUserLike] = useState([]);
   useEffect(()=>{
@@ -37,7 +39,8 @@ const handleLike = async(e) =>{
 
   }
 }
-
+//comment
+const [comment, setComment] = useState(false);
 
   return (
     <div className="post">
@@ -54,7 +57,7 @@ const handleLike = async(e) =>{
           (<FavoriteIcon style={{ color: "red" }} onClick={handleLike}/> )
           : (<FavoriteBorderIcon onClick={handleLike}/>) }
         </div>
-        <div className="commenticon">
+        <div className="commenticon" onClick={()=>{setComment(!comment)}}>
           <CommentIcon />
           Comment
         </div>
@@ -63,6 +66,7 @@ const handleLike = async(e) =>{
         {amount}
         Likes
       </div>
+      <div className="cmtComponent"> {comment && <Comment postId={post.id} />}</div>
     </div>
   );
 };
