@@ -15,7 +15,7 @@ const isAdmin = (req, res, next) => {
 
 export const lockUser = (req, res) => {
   const userID = req.params.userID;
-  const { lock } = req.body;
+  const lock = req.body.lock;
   const q = "UPDATE users SET locked=? WHERE id=?";
 
   db.query(q, [lock, userID], (err, data) => {
