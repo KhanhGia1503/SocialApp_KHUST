@@ -5,6 +5,9 @@ import axios from "axios";
 const CreatePost = ({ addNewPost,user }) => {
    const [caption,setCaption] = useState("");
    const [file, setFile] = useState(null);
+   const [currentUser, setCurrentUser] = useState(
+    JSON.parse(localStorage.getItem("user"))
+  );
    const handle = async (e) => {
 
       e.preventDefault();
@@ -22,7 +25,8 @@ const CreatePost = ({ addNewPost,user }) => {
       }
       const postdata = {text:caption,img:img_url};
       const post = await axios.post("http://localhost:8800/server/posts",postdata,{withCredentials: true,});
-      const fullNewPost = {...postdata, username: user.username, profilePic:user.profilePic }
+      const fullNewPost = {...postdata, userID:currentUser ,id:post.data, username: user.username, profilePic:user.profilePic }
+      console.log(fullNewPost)
       addNewPost(fullNewPost);
    }
   return (
