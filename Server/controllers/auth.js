@@ -54,7 +54,7 @@ export const login = (req, res) => {
     if (data.length === 0) return res.status(404).json("Email not found!");
 
     // Kiểm tra xem người dùng có bị khóa không
-    if (user.locked) return res.status(403).json("User is locked!");
+    if (data[0].locked) return res.status(403).json("User is locked!");
 
     const checkPassword = bcrypt.compareSync(
       req.body.password,
@@ -65,17 +65,17 @@ export const login = (req, res) => {
       return res.status(400).json("Wrong password or email!");
 
     // Tạo token JWT với vai trò của người dùng
-    const token = jwt.sign({ id: user.id, role: user.role }, "secretkey");
+    const token = jwt.sign({ id: data[0].id, role: data[0].role }, "secretkey");
 
     // Điều hướng người dùng tùy thuộc vào vai trò của họ
-    if (user.role === "user") {
+    if (data[0].role === "user") {
       // Điều hướng người dùng đến trang dành cho người dùng
       res.cookie("accessToken", token, {
         httpOnly: true,
         secure: true,
         sameSite: "none"
       }).redirect("/dashboard"); // Điều hướng đến trang dashboard của người dùng
-    } else if (user.role === "admin") {
+    } else if (data[0].role === "admin") {
       // Điều hướng người dùng đến trang dành cho admin
       res.cookie("accessToken", token, {
         httpOnly: true,
