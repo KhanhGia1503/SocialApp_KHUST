@@ -13,10 +13,13 @@ const CreatePost = ({ addNewPost,user }) => {
       //    "email": "emailgia@gmail.com",
       //    "password": "a12345"
       //  },{withCredentials: true,});
+      let img_url ="";
+      if(file){
       const img_form = new FormData();
       img_form.append("file",file);
       const uploadImg = await axios.post("http://localhost:8800/server/upload", img_form);
-      const img_url = uploadImg.data;
+      img_url = uploadImg.data;
+      }
       const postdata = {text:caption,img:img_url};
       const post = await axios.post("http://localhost:8800/server/posts",postdata,{withCredentials: true,});
       const fullNewPost = {...postdata, username: user.username, profilePic:user.profilePic }
