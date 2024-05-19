@@ -15,6 +15,12 @@
     max-width: 700px;
     max-height: 700px;
 }
+.commenticon{
+    cursor: pointer;
+}
+.react{
+    cursor: pointer;
+}
 .interact{
     display: flex;
     align-items: center;
