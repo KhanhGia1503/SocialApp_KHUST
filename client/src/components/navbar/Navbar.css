@@ -6,5 +6,10 @@
     height: 50px;
     position: sticky;
     top: 0;
+    /* background: #ffffff;
+    border-bottom: solid;
+    border-color: grey;
+    border-width: 10px; */
+    background: linear-gradient(#ececec, #bebebe);
 
 }

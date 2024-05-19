@@ -2,7 +2,7 @@ import { useState } from "react";
 import { currentUser } from "../../auth/auth";
 import axios from "axios";
 
-const CreatePost = () => {
+const CreatePost = ({ addNewPost,user }) => {
    const [caption,setCaption] = useState("");
    const [file, setFile] = useState(null);
    const handle = async (e) => {
@@ -17,7 +17,10 @@ const CreatePost = () => {
       img_form.append("file",file);
       const uploadImg = await axios.post("http://localhost:8800/server/upload", img_form);
       const img_url = uploadImg.data;
-      const post = await axios.post("http://localhost:8800/server/posts",{text:caption,img:img_url},{withCredentials: true,});
+      const postdata = {text:caption,img:img_url};
+      const post = await axios.post("http://localhost:8800/server/posts",postdata,{withCredentials: true,});
+      const fullNewPost = {...postdata, username: user.username, profilePic:user.profilePic }
+      addNewPost(fullNewPost);
    }
   return (
     <div className="createpost">
