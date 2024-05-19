@@ -11,8 +11,9 @@ import RelationshipRoutes from "./routes/relationships.js";
 
 import cors from "cors"
 import cookieParser from "cookie-parser"
+import {db} from "./connect.js"
 import multer from "multer";
-import { db } from "./connect.js"
+
 
 //middleware
 app.use((req, res, next) => {
@@ -22,27 +23,26 @@ app.use((req, res, next) => {
 app.use(Express.json());
 app.use(
     cors({
-        origin: "http://localhost:3000",
+      origin: "http://localhost:3000",
+      credentials: true,
+      allowedHeaders: ['Content-Type', 'Authorization'],
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
     })
-);//giao tiếp tài nguyên
+  );//giao tiếp tài nguyên
 app.use(cookieParser());//đọc các cookie từ người dùng
-
+//setup multer
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, "../Client/public/upload");
+    destination: (req, file, cb) => {
+        cb(null, '../client/public/uploads/');
     },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + file.originalname);
-    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() +'-'+ file.originalname);
+    }
 });
-
 const upload = multer({ storage: storage });
-
-app.post("/server/upload", upload.single("file"), (req, res) => {
-    const file = req.file;
-    res.status(200).json(file.filename);
+app.post('/server/upload', upload.single('file'), (req, res) => {
+    res.status(200).json(req.file.filename);
 });
-
 
 app.use("/server/users", UsersRoutes);
 app.use("/server/posts", PostsRoutes);
