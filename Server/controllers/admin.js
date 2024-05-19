@@ -1,4 +1,4 @@
-import {db} from "../connect.js"
+import { db } from "../connect.js"
 import jwt from "jsonwebtoken";
 
 // Middleware để kiểm tra quyền admin
@@ -14,18 +14,30 @@ const isAdmin = (req, res, next) => {
 };
 
 export const lockUser = (req, res) => {
-    const userID = req.params.userID;
-    const { lock } = req.body;  // lock = 1 để khóa, lock = 0 để mở khóa
-    const q = "UPDATE users SET locked=? WHERE id=?";
-  
-    db.query(q, [lock, userID], (err, data) => {
-      if (err) return res.status(500).json(err);
-      if (data.affectedRows > 0) {
-        const message = lock ? "User locked!" : "User unlocked!";
+  const userID = req.params.userID;
+  const { lock } = req.body;
+  const q = "UPDATE users SET locked=? WHERE id=?";
+
+  db.query(q, [lock, userID], (err, data) => {
+    if (err) return res.status(500).json(err);
+    if (data.affectedRows > 0) {
+      const message = lock ? "User locked!" : "User unlocked!";
+
+      // Đăng xuất người dùng nếu họ đang đăng nhập
+      if (lock) {
+        req.session.destroy((err) => {
+          if (err) {
+            return res.status(500).json(err);
+          } else {
+            return res.status(200).json(message);
+          }
+        });
+      } else {
         return res.status(200).json(message);
       }
-      return res.status(404).json("User not found!");
-    });
-  };
-  
-  export default { isAdmin, lockUser };
+    }
+    return res.status(404).json("User not found!");
+  });
+};
+
+export default { isAdmin, lockUser };
