@@ -8,7 +8,7 @@ function Detail() {
         className={`${style.user} d-flex flex-column align-items-center gap-3 px-3 py-4`}
       >
         <img src="./img/avatar.png"></img>
-        <h2>{authUser.name}</h2>
+        <h2>{authUser?.name}</h2>
       </div>
       <div className="info d-flex flex-column p-3 gap-4">
         <div className={`${style.option}`}>

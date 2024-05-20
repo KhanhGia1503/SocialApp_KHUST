@@ -39,6 +39,7 @@ function Chat() {
   }, [messages]);
   const { onlineUsers } = useSocketContext();
   const { authUser } = useAuthContext();
+  console.log("messages", messages);
   return (
     <>
       <div className={`${style.chat}`}>
@@ -70,24 +71,26 @@ function Chat() {
           </div>
         </div>
         <div className={`${style.center} p-3 gap-3`}>
-          {messages.map((m, i) => {
-            console.log(i);
-            const isOwn = m.sender_id === authUser.id;
+          {messages &&
+            messages?.map((m, i) => {
+              const isOwn = m.sender_id === authUser.id;
 
-            return (
-              <div
-                key={i}
-                className={`${style.message}  ${isOwn ? style.own : ""} gap-3`}
-              >
-                {!isOwn && <img src="./img/avatar.png"></img>}
-                <div className={` ${style.texts}`}>
-                  <p className="p-3">{m.content}</p>
-                  {/* <span>1 min ago</span> */}
+              return (
+                <div
+                  key={i}
+                  className={`${style.message}  ${
+                    isOwn ? style.own : ""
+                  } gap-3`}
+                >
+                  {!isOwn && <img src="./img/avatar.png"></img>}
+                  <div className={` ${style.texts}`}>
+                    <p className="p-3">{m.content}</p>
+                    {/* <span>1 min ago</span> */}
+                  </div>
+                  {i === messages.length - 1 && <div ref={endRef}></div>}
                 </div>
-                {i === messages.length - 1 && <div ref={endRef}></div>}
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
 
         {/*

@@ -8,7 +8,7 @@ function UserInfo() {
       <div className={`${style.user} d-flex gap-3`}>
         <img src="./img/avatar.png" alt="avatar"></img>
         <div></div>
-        <h2>{authUser.name}</h2>
+        <h2>{authUser?.name}</h2>
       </div>
       <div className={`${style.icons} gap-3`}>
         <img src="./img/more.png"></img>
