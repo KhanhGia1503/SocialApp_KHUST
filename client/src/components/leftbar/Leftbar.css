@@ -47,14 +47,28 @@
   font-size: 24px;
 }
 
-.logoutIcon {
-
-  font-size: large;
-  color: #000;
+.lContainer {
+  display: flex;
+  align-items: center;
   cursor: pointer;
-
+  margin-top: 20px;
 }
 
-.logoutIcon:hover {
+.lIcon {
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+}
+
+.lText {
+  font-size: 25px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.lContainer:hover .lIcon,
+.lContainer:hover .lText {
   color: #ff0000;
 }
