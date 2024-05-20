@@ -18,12 +18,15 @@ const Posts = ({ posts, setPosts }) => {
         }
         getdata();
     },[])
-
+    //update delete post
+    const deletePost = (postId) =>{
+        setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
+    }
     return (
         <>
         <div className="posts">
             {posts.map(post=>(
-                <Post post={post} key={post.id} />
+                <Post post={post} deletePost={deletePost} key={post.id} />
             ))}
         </div>
         </>
