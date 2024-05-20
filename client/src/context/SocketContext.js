@@ -9,7 +9,7 @@ export const SocketContextProvider = ({ children }) => {
   useEffect(() => {
     if (authUser) {
       console.log("authUser", authUser);
-      const socket = io("http://localhost:8080", {
+      const socket = io("http://localhost:8800", {
         query: {
           userEmail: authUser.email,
         },
