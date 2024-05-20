@@ -1,7 +1,9 @@
 import { db } from "../connect.js";
 import bcrypt from "bcryptjs"; //thu vien de Hass password
 import jwt from "jsonwebtoken";
+import mailService from "../services/emailServies.js";
 
+import crypto from "crypto";
 export const register = (req, res) => {
   //Kiem tra email da duoc su dung hay chua
   const q = "SELECT * FROM users WHERE email = ?";
@@ -113,4 +115,85 @@ export const logout = (req, res) => {
     })
     .status(200)
     .json("User has been logged out.");
+};
+export const postResetPassWord = (req, res, next) => {
+  const q = "SELECT * FROM users WHERE email = ?";
+
+  db.query(q, [req.body.email], (err, data) => {
+    if (err) return res.status(500).json({ error: err });
+    if (data.length === 0) {
+      return res.status(404).json({ error: "User not found!" });
+    }
+
+    // Kiểm tra xem người dùng có bị khóa không
+    if (data[0].locked) {
+      return res.status(403).json({ error: "User is locked!" });
+    }
+    const user = data[0];
+    console.log(user);
+    crypto.randomBytes(32, (err, buf) => {
+      if (err) {
+        res.status(400).json();
+      }
+      const token = buf.toString("hex");
+      user.resetToken = token;
+
+      user.resetTokenExpiration = Date.now() + 3600000;
+      console.log(user);
+      const updateQuery =
+        "UPDATE users SET resetToken = ?, resetTokenExpiration = ? WHERE email = ?";
+      db.query(
+        updateQuery,
+        [user.resetToken, user.resetTokenExpiration, user.email],
+        (err, result) => {
+          if (err) {
+            return res.status(500).json({ error: err });
+          }
+          mailService({
+            from: '" Mạng xã hội  👻" <duongkhanhb1k39@gmail.com>', // sender address
+            to: user.email,
+            subject: "Đặt lại mật khẩu",
+            text: "Hello world?",
+            html: `<b>Vào <a href = "http://localhost:3000/reset/${token}"> link </a> sau để đặt lại mật khẩu?</b>`, // html body})
+          }).then(() => {
+            res.status(201).json({
+              message: "Reset token generated and saved!",
+              resetToken: token,
+            });
+          });
+        }
+      );
+    });
+  });
+
+  // User.findOne({ where: { email: req.body.email } })
+  //   .then((user) => {
+  //     if (!user) {
+  //       return res.status(400).json();
+  //     }
+  //     console.log(user);
+  //     crypto.randomBytes(32, (err, buf) => {
+  //       if (err) {
+  //         res.status(400).json();
+  //       }
+  //       const token = buf.toString("hex");
+  //       user.resetToken = token;
+  //       user.resetTokenExpiration = Date.now() + 3600000;
+  //       user.save().then((result) => {
+  //         mailService({
+  //           from: '" Mạng xã hội  👻" <duongkhanhb1k39@gmail.com>', // sender address
+  //           to: user.email,
+  //           subject: "Đặt lại mật khẩu",
+  //           text: "Hello world?",
+  //           html: `<b>Vào <a href = "http://localhost:3000/reset/${token}"> link </a> sau để đặt lại mật khẩu?</b>`, // html body})
+  //         }).then(() => {
+  //           res.status(201).json();
+  //         });
+  //       });
+  //     });
+  //   })
+
+  //   .catch((err) => {
+  //     // console.log(err);
+  //   });
 };

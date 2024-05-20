@@ -1,6 +1,6 @@
-const nodemailer = require("nodemailer");
-
-module.exports = async (maiilDetail) => {
+// const nodemailer = require("nodemailer");
+import nodemailer from "nodemailer";
+const mailService = async (maiilDetail) => {
   console.log(maiilDetail);
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -11,3 +11,4 @@ module.exports = async (maiilDetail) => {
   });
   const info = await transporter.sendMail(maiilDetail);
 };
+export default mailService;
