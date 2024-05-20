@@ -20,7 +20,7 @@ const Comment = ({ comment, post, handleDelete }) => {
       </div>
       <MoreHorizIcon onClick={() => setOption(!option)} />
       {option && post.userID === currentUser.id && (
-        <button onClick={(e) => handleDelete(e, comment.id)}>Delete</button>
+        <button className="delete" onClick={(e) => handleDelete(e, comment.id)}>Delete</button>
       )}
     </div>
   );

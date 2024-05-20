@@ -1,0 +1,70 @@
+.create {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .create form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .create input[type="text"] {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .create .bot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .create .bot input[type="file"] {
+    margin-right: 10px;
+  }
+  
+  .create button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .create button:hover {
+    background-color: #0056b3;
+  }
+  
+  .file-upload {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+  
+  .file-upload input[type="file"] {
+    position: absolute;
+    left: -9999px;
+  }
+  
+  .file-upload-label {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .file-upload-label:hover {
+    background-color: #0056b3;
+  }

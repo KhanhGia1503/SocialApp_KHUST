@@ -50,6 +50,7 @@ const Post = ({ post, deletePost }) => {
       );
       const newUserLike = userLike.filter((user) => user !== currentUser.id);
       setUserLike(newUserLike);
+      setAmount(amount-1);
     } else {
       await axios.post(
         `http://localhost:8800/server/likes/`,
@@ -58,6 +59,7 @@ const Post = ({ post, deletePost }) => {
       );
       const newUserLike = [...userLike, currentUser.id];
       setUserLike(newUserLike);
+      setAmount(amount+1);
     }
   };
 

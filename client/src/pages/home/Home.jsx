@@ -28,10 +28,12 @@ const Home = () => {
   }, []);
   return (
     <div className="home">
-      <Navbar user={user} />
+      {/* <Navbar user={user} /> */}
       <div className="a">
+        <div className="left">
         <Leftbar />
-        <div className="mid">
+        </div>
+        <div className="right">
           <CreatePost addNewPost={addNewPost} user={user} />
           <Posts posts={posts} setPosts={setPosts} />
         </div>

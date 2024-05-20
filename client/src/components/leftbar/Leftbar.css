@@ -1,15 +1,60 @@
-.leftbar{
-    /* position: sticky;
-    top: 80px;
+.leftbar {
+  /* position: sticky;
+    top: 0;
     padding: 10px 20px;
-    height: 100px;
-    flex:30%;
-    border-style: solid ; */
-    flex: 6;
-    position: sticky;
-    top: 70px;
-    height: calc(100vh - 70px);
-    overflow: scroll;
-    background-color: themed("bg");
-    color: themed("textColor");
+    margin-right: 30px;
+    height: 1000px;
+    flex:8%;
+    border-right: solid;
+    display: flex;
+    flex-direction: column; */
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 250px;
+  background-color: #f8f9fa;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.khust {
+  font-family: cursive;
+  font-size: 45px;
+  color: black;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.luser {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.lprofilePic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+.lprofile {
+  font-size: 24px;
+}
+
+.logoutIcon {
+
+  font-size: large;
+  color: #000;
+  cursor: pointer;
+
+}
+
+.logoutIcon:hover {
+  color: #ff0000;
 }

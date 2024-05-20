@@ -39,3 +39,26 @@
   font-size: 12px;
   color: #888;
 }
+.delete {
+  padding: 10px 20px;
+  border: none;
+  /* position: absolute; */
+  top: 30px;
+  right: 0;
+  cursor: pointer;
+  background-color: #ff4d4d;
+  color: white; 
+  border-radius: 5px;
+  font-size: 14px;
+  margin-top: 10px; 
+  transition: background-color 0.3s ease; 
+}
+
+.delete:hover {
+  background-color: #cc0000; 
+}
+
+.delete:focus {
+  outline: none; 
+  box-shadow: 0 0 5px rgba(255, 0, 0, 0.5); 
+}
