@@ -14,12 +14,12 @@ const Home = () => {
     setPosts([newPost, ...posts]);
   };
   const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem("user"))
+    JSON.parse(localStorage.getItem("chat-user"))
   );
   useEffect(() => {
     const getUser = async () => {
       const res = await axios.get(
-        `http://localhost:8800/server/users/${currentUser}`,
+        `http://localhost:8800/server/users/${currentUser.id}`,
         { withCredentials: true }
       );
       setUser(res.data);
@@ -28,10 +28,12 @@ const Home = () => {
   }, []);
   return (
     <div className="home">
-      <Navbar />
+      {/* <Navbar user={user} /> */}
       <div className="a">
+        <div className="left">
         <Leftbar />
-        <div className="mid">
+        </div>
+        <div className="right">
           <CreatePost addNewPost={addNewPost} user={user} />
           <Posts posts={posts} setPosts={setPosts} />
         </div>

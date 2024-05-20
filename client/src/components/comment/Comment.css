@@ -1,37 +1,64 @@
 .comment {
-    margin: 30px 0px;
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-.info {
-    flex: 5;
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    align-items: flex-start;
-
-    span {
-        font-weight: 500;
-    }
-
-    p {
-        color: themed("textColorSoft")
-    }
+.comment .profile {
+  width: 50px; 
+  height: 50px; 
+  border-radius: 50%; 
+  margin-right: 10px;
+  object-fit: cover;
 }
 
-.date {
-    flex: 1;
-    align-self: center;
-    color: gray;
-    font-size: 12px;
+.comment .info {
+  flex: 1; 
 }
 
-.profile {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
+.comment .info span {
+  font-weight: bold;
+}
+
+.comment .info p {
+  margin: 5px 0;
+}
+
+.comment button {
+  margin-left: 10px;
+  background-color: #f0f0f0;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.comment .username{
+  font-size: 12px;
+}
+.comment .date {
+  margin-left: 10px;
+  font-size: 12px;
+  color: #888;
+}
+.delete {
+  padding: 10px 20px;
+  border: none;
+  /* position: absolute; */
+  top: 30px;
+  right: 0;
+  cursor: pointer;
+  background-color: #ff4d4d;
+  color: white; 
+  border-radius: 5px;
+  font-size: 14px;
+  margin-top: 10px; 
+  transition: background-color 0.3s ease; 
+}
+
+.delete:hover {
+  background-color: #cc0000; 
+}
+
+.delete:focus {
+  outline: none; 
+  box-shadow: 0 0 5px rgba(255, 0, 0, 0.5); 
 }

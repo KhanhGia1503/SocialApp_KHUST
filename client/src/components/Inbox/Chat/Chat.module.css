@@ -1,0 +1,129 @@
+.chat{
+    flex :2;
+    border-left:  1px solid #dddddd35;
+    border-right:  1px solid #dddddd35;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.user img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.activing{
+    width: 20px;
+    height: 20px;
+    background-color: green;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+.top{
+    align-items: center;
+    justify-content: space-between;
+    justify-items: center;
+    border-bottom: 1px solid #dddddd35;
+}
+.texts{
+    
+    flex-direction: column;
+    display: flex;
+    align-content: center;
+}
+p{
+    color: #a5a5a5;
+}
+.emoji>img,
+.icons>img{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+.bottom{
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #dddddd35;
+}
+input{
+    flex: 1;
+    border: none;
+    outline: none;
+    background-color: rgba(17,25,40,0.5);
+    color: white;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+.emoji{
+    position: relative;
+}
+.emojiPicker{
+    position: absolute;
+    left: 0px;
+    bottom: 20px;
+}
+.center{
+    flex:1;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+
+}
+.message{
+    max-width: 70%;
+    display: flex;
+
+}
+.message>img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: 50%;
+    align-self: flex-end;
+    position: relative;
+    top:-20px;
+}
+.message p{
+    background-color: rgba(17,25,40,0.5);
+    border-radius: 10px;
+        line-height: 1.1; /* Thay đổi giá trị để điều chỉnh khoảng cách */
+        margin-bottom: 0px;
+        position: relative;
+    
+}
+.texts >img{
+    width: 300px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+
+}
+.own>.texts>img{
+    align-self: flex-end;
+}
+.own>.texts>span{
+    align-self: flex-end;
+}
+.own{
+    align-self: flex-end;
+}
+.own p{
+    background-color: #0084ff;
+    color: #fff;
+}
+.texts>img{
+    cursor: pointer;
+}
+
+.containerModal{
+    position: absolute;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background-color: #3c5077A0;
+    align-items: center;
+    justify-content: center;
+}

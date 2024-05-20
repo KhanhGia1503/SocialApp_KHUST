@@ -17,7 +17,7 @@ const useGetMessages = () => {
       setLoading(true);
       console.log("selectedIdConver", selectedConversation.id);
       const res = await fetch(
-        `http://localhost:8080/message/${selectedConversation.id}`,
+        `http://localhost:8800/message/${selectedConversation.id}`,
         { credentials: "include" }
       );
       const data = await res.json();

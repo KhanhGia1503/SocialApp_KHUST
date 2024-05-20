@@ -1,0 +1,21 @@
+.userInfo{
+    align-items: center;
+    justify-content: space-between;
+}
+.user{
+    align-items: center;
+}
+.user img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.icons{
+    display: flex;
+}
+.icons img{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}

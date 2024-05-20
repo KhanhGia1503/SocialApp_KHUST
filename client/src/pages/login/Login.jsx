@@ -9,7 +9,18 @@ import style from "./Login.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import useLogin from "../../hooks/useLogin";
+import { useEffect } from "react";
+import axios from "axios";
 function Login() {
+//   useEffect(()=>{
+//     const loginn = async ()=>{
+//         const res = await axios.post("http://localhost:8800/server/auth/login", {
+//           "email": "emailgia@gmail.com",
+//           "password": "a12345"
+//         },{withCredentials: true,});
+//     }
+//     loginn();
+// },[])
   const { loading, login } = useLogin();
   const { Formik } = formik;
   const navigate = useNavigate();
@@ -104,7 +115,7 @@ function Login() {
               </span>
               <span>
                 Don't have an account?
-                <Link to="/password-reset">Sign up</Link>
+                <Link to="/register">Sign up</Link>
               </span>
             </div>
           </Form>

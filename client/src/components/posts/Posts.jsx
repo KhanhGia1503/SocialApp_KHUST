@@ -8,11 +8,11 @@ import axios from "axios";
 const Posts = ({ posts, setPosts }) => {
 
     const [currentUser, setCurrentUser] = useState(
-        JSON.parse(localStorage.getItem("user"))
+        JSON.parse(localStorage.getItem("chat-user"))
       );
     useEffect(()=>{
         const getdata = async ()=>{
-            const res = await axios.get(`http://localhost:8800/server/posts?userID=${currentUser}`,{withCredentials: true,});
+            const res = await axios.get(`http://localhost:8800/server/posts?userID=${currentUser.id}`,{withCredentials: true,});
             setPosts(res.data);
             
         }

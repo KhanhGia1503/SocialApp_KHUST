@@ -5,6 +5,7 @@ import Register from "./pages/register/Register";
 import Home from "./pages/home/Home";
 import ResetPassword from "./pages/resetpassword/ResetPassword";
 import ChangePassword from "./pages/resetpassword/ChangePassword";
+import Inbox from "./pages/chat/Inbox";
 function App() {
   const router = createBrowserRouter([
     {
@@ -24,6 +25,7 @@ function App() {
       element: <Home />,
     },
     { path: "/reset/:token", element: <ChangePassword></ChangePassword> },
+    { path: "/inbox", element: <Inbox></Inbox> },
   ]);
 
   return (
