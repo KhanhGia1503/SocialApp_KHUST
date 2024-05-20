@@ -2,6 +2,7 @@ import Express from "express";
 const app = Express();
 
 import UsersRoutes from "./routes/users.js"
+import AdminRoutes from "./routes/admin.js"
 import PostsRoutes from "./routes/posts.js"
 import CommentsRoutes from "./routes/comments.js"
 import LikesRoutes from "./routes/likes.js"
@@ -45,6 +46,7 @@ app.post('/server/upload', upload.single('file'), (req, res) => {
 });
 
 app.use("/server/users", UsersRoutes);
+app.use("/server/admin", AdminRoutes);
 app.use("/server/posts", PostsRoutes);
 app.use("/server/comments", CommentsRoutes);
 app.use("/server/likes", LikesRoutes);
