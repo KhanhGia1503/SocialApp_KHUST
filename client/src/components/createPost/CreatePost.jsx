@@ -1,17 +1,16 @@
-import { useState } from "react";
-import { currentUser } from "../../auth/auth";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 const CreatePost = ({ addNewPost,user }) => {
    const [caption,setCaption] = useState("");
    const [file, setFile] = useState(null);
    const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem("user"))
+    JSON.parse(localStorage.getItem("chat-user"))
   );
    const handle = async (e) => {
 
       e.preventDefault();
-      
+
       // const login = await axios.post("http://localhost:8800/server/auth/login", {
       //    "email": "emailgia@gmail.com",
       //    "password": "a12345"
@@ -25,7 +24,7 @@ const CreatePost = ({ addNewPost,user }) => {
       }
       const postdata = {text:caption,img:img_url};
       const post = await axios.post("http://localhost:8800/server/posts",postdata,{withCredentials: true,});
-      const fullNewPost = {...postdata, userID:currentUser ,id:post.data, username: user.username, profilePic:user.profilePic }
+      const fullNewPost = {...postdata, userID:currentUser.id ,id:post.data, username: user.username, profilePic:user.profilePic }
       console.log(fullNewPost)
       addNewPost(fullNewPost);
    }

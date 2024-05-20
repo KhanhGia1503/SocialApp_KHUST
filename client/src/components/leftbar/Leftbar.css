@@ -1,8 +1,15 @@
 .leftbar{
-    position: sticky;
+    /* position: sticky;
     top: 80px;
     padding: 10px 20px;
     height: 100px;
     flex:30%;
-    border-style: solid ;
+    border-style: solid ; */
+    flex: 6;
+    position: sticky;
+    top: 70px;
+    height: calc(100vh - 70px);
+    overflow: scroll;
+    background-color: themed("bg");
+    color: themed("textColor");
 }

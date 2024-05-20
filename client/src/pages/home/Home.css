@@ -3,12 +3,10 @@
 }
 .mid{
     flex: 50%;
-    border-style: solid;
 }
 .a{
     margin-top: 10px;
     display: flex;
-    justify-items: space-between;
     /* position: sticky;
     top: 0; */
 }
