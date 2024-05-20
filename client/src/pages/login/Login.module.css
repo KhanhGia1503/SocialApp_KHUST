@@ -1,0 +1,57 @@
+.container{
+    width: 100 vw;
+}
+.form{
+    box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
+    border-radius: 8px;
+    background-color: white;
+}
+.btnsubmit{
+    width: 50%;
+    margin: auto;
+}
+.texts{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+}
+.texts a{
+    text-decoration: none;
+}
+.header{
+    box-sizing: border-box;
+    padding: 30px;
+}
+.resetPasswordForm{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+*{
+    box-sizing: border-box;
+}
+.returnLoginBox{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+
+}
+.returnLoginBox > .btnReturnLogin{
+    cursor: pointer;
+    display: flex;
+   
+    justify-content: center;
+    border: 1px solid gray ;
+    border-radius: 10px;
+    margin: 0;
+    width: 100%;
+
+}
+.btnReturnLogin>a{
+    text-decoration: none;
+}
