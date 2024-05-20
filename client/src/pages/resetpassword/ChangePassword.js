@@ -39,7 +39,32 @@ function ChangePasswordHandler() {
       {!sendPasswordSuccess && (
         <Formik
           validationSchema={schema}
-          onSubmit={(values) => console.log({ ...values, token })}
+          onSubmit={async ({ password }) => {
+            try {
+              const res = await fetch(
+                "http://localhost:8800/server/auth/changepassword",
+                {
+                  method: "POST",
+                  // credentials: "include",
+                  headers: { "Content-type": "application/json" },
+                  body: JSON.stringify({
+                    token,
+                    password,
+                  }),
+                }
+              );
+              const data = await res.json();
+              console.log(data);
+              if (data.error) {
+                throw new Error(data.error);
+              }
+              toast.success("changed password successfully");
+              setSendPasswordSuccess(true);
+            } catch (error) {
+              console.log(error);
+              toast.error(error.message);
+            }
+          }}
           initialValues={{
             password: "",
             confirmPassword: "",
@@ -55,31 +80,7 @@ function ChangePasswordHandler() {
           }) => (
             <Form
               noValidate
-              onSubmit={async ({ token, password }) => {
-                try {
-                  const res = await fetch(
-                    "http://localhost:8800/server/auth/changepassword",
-                    {
-                      method: "POST",
-                      // credentials: "include",
-                      headers: { "Content-type": "application/json" },
-                      body: JSON.stringify({
-                        token,
-                        password,
-                      }),
-                    }
-                  );
-                  const data = await res.json();
-                  console.log(data);
-                  if (data.error) {
-                    throw new Error(data.error);
-                  }
-                  toast.success("changed password successfully");
-                } catch (error) {
-                  console.log(error);
-                  toast.error(error.message);
-                }
-              }}
+              onSubmit={handleSubmit}
               className={`${style.form} p-3 ${style.resetPasswordForm} `}
             >
               <div className={`px-5 py-3`}>

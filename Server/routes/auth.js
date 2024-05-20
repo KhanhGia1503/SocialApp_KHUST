@@ -4,7 +4,7 @@ import {
   login,
   logout,
   postResetPassWord,
-  // postChangePassWord,
+  postChangePassWord,
 } from "../controllers/auth.js";
 
 const router = Express.Router();
@@ -13,6 +13,6 @@ router.post("/register", register);
 router.post("/login", login);
 router.post("/logout", logout);
 router.post("/resetpassword", postResetPassWord);
-// router.post("/reset/:token", authController.postChangePassWord);
+router.post("/changepassword", postChangePassWord);
 
 export default router;

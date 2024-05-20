@@ -165,35 +165,40 @@ export const postResetPassWord = (req, res, next) => {
       );
     });
   });
+};
+export const postChangePassWord = (req, res) => {
+  const token = req.body.token;
+  if (!token) {
+    res.status(400).json({ error: "Reset token is not provided" });
+  }
+  const findUserQuery = "SELECT * FROM users WHERE resetToken = ?";
+  db.query(findUserQuery, [token], (err, results) => {
+    if (err) {
+      return res.status(400).json({ error: err });
+    }
 
-  // User.findOne({ where: { email: req.body.email } })
-  //   .then((user) => {
-  //     if (!user) {
-  //       return res.status(400).json();
-  //     }
-  //     console.log(user);
-  //     crypto.randomBytes(32, (err, buf) => {
-  //       if (err) {
-  //         res.status(400).json();
-  //       }
-  //       const token = buf.toString("hex");
-  //       user.resetToken = token;
-  //       user.resetTokenExpiration = Date.now() + 3600000;
-  //       user.save().then((result) => {
-  //         mailService({
-  //           from: '" Mạng xã hội  👻" <duongkhanhb1k39@gmail.com>', // sender address
-  //           to: user.email,
-  //           subject: "Đặt lại mật khẩu",
-  //           text: "Hello world?",
-  //           html: `<b>Vào <a href = "http://localhost:3000/reset/${token}"> link </a> sau để đặt lại mật khẩu?</b>`, // html body})
-  //         }).then(() => {
-  //           res.status(201).json();
-  //         });
-  //       });
-  //     });
-  //   })
+    if (results.length === 0) {
+      res.status(400).json({ error: "Reset token is invalid " });
+      return;
+    }
 
-  //   .catch((err) => {
-  //     // console.log(err);
-  //   });
+    const user = results[0];
+    console.log(user);
+    const userId = user.id;
+    if (user.resetTokenExpiration < Date.now()) {
+      return res.status(400).json({ erroe: "Token has expired" });
+    }
+    // Query to update the user's password
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(req.body.password, salt);
+    const updatePasswordQuery = "UPDATE users SET password = ? WHERE id = ?";
+    db.query(updatePasswordQuery, [hashedPassword, userId], (err, result) => {
+      if (err) {
+        res.status(400).json({ error: err });
+
+        return;
+      }
+      return res.status(200).json("Success");
+    });
+  });
 };
