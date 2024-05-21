@@ -72,3 +72,23 @@
 .lContainer:hover .lText {
   color: #ff0000;
 }
+
+
+
+
+.searchBar{
+  align-items: center;
+  border-radius: 10px;
+  background-color: rgba(17,25,40, 0.5)
+}
+.searchBar>input{
+  border: none;
+  background-color: transparent;
+  color: white;
+  flex: 1;
+}       
+.searchBar>img{
+  width: 20px;
+  height: 20px;
+
+}

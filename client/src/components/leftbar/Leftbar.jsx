@@ -6,11 +6,21 @@ import { useState } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 import MessageIcon from '@mui/icons-material/Message';
 import { Icon } from "@mui/material";
+import useSearchUser from "../../hooks/useSearchUser";
 
 const Leftbar = () => {
+  const [searchInputUser,setSearchInputUser] = useState("");
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(localStorage.getItem("chat-user"))
   );
+  const {searchUser} = useSearchUser();
+  const searchUserHandler = (e) => {
+    e.preventDefault();
+    if (searchInputUser.trim().length === 0) {
+      return;
+    }
+    searchUser(searchInputUser);
+  };
 
   const LogOut = async (event) => {
     try {
@@ -52,6 +62,24 @@ const Leftbar = () => {
           alt="uploads/User.png"
         />
         <div className="lprofile">Profile</div>
+      </div>
+      <div className="search pt-0">
+        <div className={`searchBar p-2 d-flex`}>
+          <img
+            onClick={searchUserHandler}
+            className={`search`}
+            src="./img/search.png"
+          ></img>
+          <input
+            type="text"
+            placeholder="Search username"
+            onChange={(event) => {
+              setSearchInputUser(event.target.value);
+            }}
+            value={searchInputUser}
+          ></input>
+          
+        </div>
       </div>
       <div className="lContainer" onClick={Message}>
         <MessageIcon style={{ fontSize: 30 }} className="lIcon" />
