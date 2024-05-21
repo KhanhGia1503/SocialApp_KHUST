@@ -25,7 +25,9 @@ const useLogin = () => {
       }
       localStorage.setItem("chat-user", JSON.stringify(data));
       setAuthUser(data);
-      if (data.role === "user") {
+      if (data.role === "admin") {
+        navigate("/admin-home");
+      } else {
         navigate("/");
       }
     } catch (error) {
