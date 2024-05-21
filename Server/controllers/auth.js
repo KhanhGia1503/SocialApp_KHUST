@@ -1,9 +1,15 @@
+import express from 'express';
 import { db } from "../connect.js";
 import bcrypt from "bcryptjs"; //thu vien de Hass password
 import jwt from "jsonwebtoken";
 import mailService from "../services/emailServies.js";
-
 import crypto from "crypto";
+
+const app = express();
+
+// Serve static files from the "public" directory
+app.use('/public-images', express.static('public'));
+
 export const register = (req, res) => {
   //Kiem tra email da duoc su dung hay chua
   const q = "SELECT * FROM users WHERE email = ?";
@@ -33,7 +39,7 @@ export const register = (req, res) => {
     const hashedPassword = bcrypt.hashSync(req.body.password, salt);
 
     const q =
-      "INSERT INTO users (`username`,`email`,`password`,`name`, `gender`, `birthday`, `role`) VALUE (?)";
+      "INSERT INTO users (`username`,`email`,`password`,`name`, `gender`, `birthday`, `role`, `profilePic`, `coverPic`) VALUE (?)";
 
     const values = [
       req.body.username,
@@ -43,6 +49,8 @@ export const register = (req, res) => {
       req.body.gender,
       req.body.birthday,
       "user",
+      "/public-images/default-profile.jpg", 
+      "/public-images/default-cover.png"
     ];
 
     db.query(q, [values], (err, data) => {

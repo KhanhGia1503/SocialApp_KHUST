@@ -29,7 +29,7 @@ const Leftbar = () => {
   const Message = async (event) => {
     try {
       await axios.post(
-        "http://localhost:8800/message",
+        "http://localhost:8800/server/auth/logout",
         {},
         { withCredentials: true }
       );
