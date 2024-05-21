@@ -35,7 +35,7 @@ const Home = () => {
         </div>
         <div className="right">
           <CreatePost addNewPost={addNewPost} user={user} />
-          <Posts posts={posts} setPosts={setPosts} />
+          <Posts posts={posts} setPosts={setPosts} home={true} />
         </div>
       </div>
     </div>
