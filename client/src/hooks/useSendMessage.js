@@ -8,7 +8,7 @@ const useSendMessage = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:8080/message/send/${selectedConversation.user.id}`,
+        `http://localhost:8800/message/send/${selectedConversation.user.id}`,
         {
           credentials: "include",
 

@@ -1,6 +1,8 @@
 import Express from "express";
 import { app, server } from "./socket/socket.js";
 
+import protectRoute from "./middlewares/ProtectRoute.js";
+import messageRoute from "./routes/Message.js";
 import UsersRoutes from "./routes/users.js";
 import AdminRoutes from "./routes/admin.js";
 import PostsRoutes from "./routes/posts.js";
@@ -43,7 +45,8 @@ const upload = multer({ storage: storage });
 app.post("/server/upload", upload.single("file"), (req, res) => {
   res.status(200).json(req.file.filename);
 });
-
+app.use("/server/auth", AuthRoutes);
+app.use(protectRoute);
 app.use("/server/users", UsersRoutes);
 app.use("/server/admin", AdminRoutes);
 app.use("/server/posts", PostsRoutes);
@@ -51,8 +54,7 @@ app.use("/server/comments", CommentsRoutes);
 app.use("/server/likes", LikesRoutes);
 app.use("/server/relationships", RelationshipRoutes);
 app.use("/server/reports", ReportsRoutes);
-app.use("/server/auth", AuthRoutes);
-
+app.use("/message", messageRoute);
 server.listen(8800, () => {
   console.log("Server is working!!!");
   db.connect(function (err) {

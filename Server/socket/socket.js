@@ -31,5 +31,5 @@ io.on("connection", (socket) => {
     console.log(userSocketMap);
   });
 });
-export { app, io, server, getReceiverSocketId };
+export { app, io, server, getReceiverSocketId, userSocketMap };
 //module.exports = { app, io, server, getReceiverSocketId };

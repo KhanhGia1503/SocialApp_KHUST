@@ -8,7 +8,7 @@ const useGetConversation = () => {
     const getConversation = async () => {
       setLoading(true);
       try {
-        const res = await fetch("http://localhost:8080/message/conversations", {
+        const res = await fetch("http://localhost:8800/message/conversations", {
           credentials: "include",
         });
         const data = await res.json();
