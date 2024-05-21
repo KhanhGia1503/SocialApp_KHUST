@@ -27,6 +27,14 @@ function App() {
       path: "/",
       element: <Home />,
     },
+    {
+      path: "/admin-home",
+      element: <AdminHome />,
+    },
+    {
+      path:"/profile",
+      element: <Profile/>,
+    },
     { path: "/reset/:token", element: <ChangePassword></ChangePassword> },
     { path: "/inbox", element: <Inbox></Inbox> },
     { path: "/:username", element: <Profile></Profile> },
