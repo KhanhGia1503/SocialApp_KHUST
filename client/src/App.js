@@ -7,7 +7,6 @@ import Profile from "./pages/profile/Profile";
 import ResetPassword from "./pages/resetpassword/ResetPassword";
 import ChangePassword from "./pages/resetpassword/ChangePassword";
 import Inbox from "./pages/chat/Inbox";
-import Profile from "./pages/profile/Profile";
 import AdminHome from "./pages/admin-home/AdminHome";
 function App() {
   const router = createBrowserRouter([
