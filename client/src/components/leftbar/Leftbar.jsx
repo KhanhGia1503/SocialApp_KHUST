@@ -28,11 +28,11 @@ const Leftbar = () => {
 
   const Message = async (event) => {
     try {
-      await axios.post(
-        "http://localhost:8800/server/auth/logout",
-        {},
-        { withCredentials: true }
-      );
+      // await axios.post(
+      //   "http://localhost:8800/server/auth/logout",
+      //   {},
+      //   { withCredentials: true }
+      // );
       // Redirect to the login page or homepage after logging out
       window.location.href = "http://localhost:3000/inbox";
     } catch (error) {
