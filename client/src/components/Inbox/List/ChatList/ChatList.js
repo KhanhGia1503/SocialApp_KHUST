@@ -79,7 +79,7 @@ function ChatList() {
                   <span className="fs-5 fw-bolder">
                     {conversation.user.name}
                   </span>
-                  <p className="m-0 fs-6 fw-normal">you 're free rn?</p>
+                  <p className="m-0 fs-6 fw-normal"></p>
                 </div>
               </div>
             );

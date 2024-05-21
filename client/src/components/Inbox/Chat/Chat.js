@@ -19,6 +19,7 @@ function Chat() {
   };
   useListenMessages();
   const { selectedConversation, setSelectedConversation } = useConversation();
+  console.log("selectedConversation", selectedConversation);
   //show image when click
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -47,7 +48,7 @@ function Chat() {
           <div className={`${style.user} gap-2 d-flex align-items-center`}>
             <div className="position-relative">
               <img src="./img/avatar.png"></img>
-              {onlineUsers.includes(selectedConversation?.user.email) ? (
+              {onlineUsers.includes(selectedConversation?.user?.email) ? (
                 <div className={`${style.activing}`}></div>
               ) : (
                 ""
@@ -55,10 +56,10 @@ function Chat() {
             </div>
             <div className={`${style.texts} `}>
               <span className="fs-5 fw-bolder">
-                {selectedConversation?.user.name}
+                {selectedConversation?.user?.name}
               </span>
               <p className="m-0 fs-6 fw-normal">
-                {onlineUsers.includes(selectedConversation?.user.email)
+                {onlineUsers.includes(selectedConversation?.user?.email)
                   ? "Activing"
                   : ""}
               </p>

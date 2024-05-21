@@ -197,38 +197,87 @@ export const getMessages = async (req, res) => {
   }
 };
 
-export const findConversationByUserName = async (req, res) => {
-  try {
-    const { username } = req.params;
+// export const findConversationByUserName = async (req, res) => {
+//   try {
+//     const { username } = req.params;
 
-    const user = await User.findOne({
-      where: {
-        name: username,
-      },
+//     const user = await User.findOne({
+//       where: {
+//         name: username,
+//       },
+//     });
+//     console.log("user", user);
+//     if (!user) {
+//       return res.status(404).json({ error: "User Not found" });
+//     }
+//     console.log("req.user.id", req.user.id);
+//     console.log("user.id", user.id);
+//     let conversation = await Conversation.findOne({
+//       where: {
+//         [Op.or]: [
+//           { user2_id: req.user.id, user1_id: user.id },
+//           { user1_id: user.id, user2_id: req.user.id },
+//         ],
+//       },
+//     });
+//     console.log("conversation", conversation);
+//     if (!conversation) {
+//       conversation = await Conversation.create({
+//         user1_id: req.user.id,
+//         user2_id: user.id,
+//       });
+//     }
+//     res.json(conversation);
+//   } catch (error) {
+//     res.status(500).json({ error: "Internal server error" });
+//   }
+// };
+
+export const findConversationByUserId = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    // Tìm user dựa trên username
+    const users = await sequelize.query(`SELECT * FROM users WHERE id = ?`, {
+      replacements: [userId],
+      type: sequelize.QueryTypes.SELECT,
     });
-    console.log("user", user);
+    console.log("users", users);
+    const user = users[0];
+
     if (!user) {
       return res.status(404).json({ error: "User Not found" });
     }
-    console.log("req.user.id", req.user.id);
-    console.log("user.id", user.id);
-    let conversation = await Conversation.findOne({
-      where: {
-        [Op.or]: [
-          { user2_id: req.user.id, user1_id: user.id },
-          { user1_id: user.id, user2_id: req.user.id },
-        ],
-      },
-    });
-    console.log("conversation", conversation);
+    console.log(user);
+    // Tìm conversation dựa trên user_id
+    const conversations = await sequelize.query(
+      `SELECT * FROM conversations WHERE (user1_id = ? AND user2_id = ?) OR (user1_id = ? AND user2_id = ?)`,
+      {
+        replacements: [req.user.id, user.id, user.id, req.user.id],
+        type: sequelize.QueryTypes.SELECT,
+      }
+    );
+    let conversation = conversations[0];
+
     if (!conversation) {
-      conversation = await Conversation.create({
-        user1_id: req.user.id,
-        user2_id: user.id,
+      // Tạo mới conversation nếu chưa có
+      const result = await sequelize.query(
+        `INSERT INTO conversations (user1_id, user2_id) VALUES (?, ?) `,
+        {
+          replacements: [req.user.id, user.id],
+          type: sequelize.QueryTypes.INSERT,
+        }
+      );
+      conversation = result[0];
+      console.log("conversation", conversation);
+      return res.json({
+        id: result[0],
+        user,
       });
     }
-    res.json(conversation);
+    res.json({ id: conversation.id, user });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
