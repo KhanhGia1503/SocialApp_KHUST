@@ -1,0 +1,31 @@
+
+.puser {
+    display: flex;
+    margin-top: 50px;
+    gap: 20px;
+}
+.a{
+    margin-top: 10px;
+    display: flex;
+    /* position: sticky;
+    top: 0; */
+}
+.puser_name{
+    font-size: 60px;
+}
+.puser img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.left{
+    flex: 8%;
+}
+.right{
+    flex: 50%;
+    margin-right: 4%;
+}
+.ppost{
+    margin-top: 100px;
+}

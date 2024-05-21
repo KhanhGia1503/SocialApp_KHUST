@@ -5,8 +5,9 @@ import "./Home.css";
 import Leftbar from "../../components/leftbar/Leftbar.jsx";
 import CreatePost from "../../components/createPost/CreatePost.jsx";
 import Posts from "../../components/posts/Posts.jsx";
-
+import { useNavigate } from "react-router-dom";
 const Home = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState("");
   const [posts, setPosts] = useState([]);
   const addNewPost = (newPost) => {
