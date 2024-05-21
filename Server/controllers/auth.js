@@ -1,9 +1,15 @@
+import express from 'express';
 import { db } from "../connect.js";
 import bcrypt from "bcryptjs"; //thu vien de Hass password
 import jwt from "jsonwebtoken";
 import mailService from "../services/emailServies.js";
-
 import crypto from "crypto";
+
+const app = express();
+
+// Serve static files from the "public" directory
+app.use('/public-images', express.static('public'));
+
 export const register = (req, res) => {
   //Kiem tra email da duoc su dung hay chua
   const q = "SELECT * FROM users WHERE email = ?";
@@ -33,7 +39,7 @@ export const register = (req, res) => {
     const hashedPassword = bcrypt.hashSync(req.body.password, salt);
 
     const q =
-      "INSERT INTO users (`username`,`email`,`password`,`name`, `gender`, `birthday`, `role`) VALUE (?)";
+      "INSERT INTO users (`username`,`email`,`password`,`name`, `gender`, `birthday`, `role`, `profilePic`, `coverPic`) VALUE (?)";
 
     const values = [
       req.body.username,
@@ -43,6 +49,8 @@ export const register = (req, res) => {
       req.body.gender,
       req.body.birthday,
       "user",
+      "/public-images/default-profile.jpg",
+      "/public-images/default-cover.png"
     ];
 
     db.query(q, [values], (err, data) => {
@@ -73,37 +81,18 @@ export const login = (req, res) => {
       return res.status(400).json({ error: "Wrong password or email!" });
 
     // Tạo token JWT với vai trò của người dùng
-    const token = jwt.sign({ id: data[0].id, role: data[0].role }, "secretkey");
+    const token = jwt.sign({ id: data[0].id }, "secretkey");
 
     const { password, ...others } = data[0]; // Loại bỏ mật khẩu từ dữ liệu người dùng
 
-    // Điều hướng người dùng tùy thuộc vào vai trò của họ
-    if (data[0].role === "user") {
-      // Điều hướng người dùng đến trang dành cho người dùng
-      res
-        .cookie("accessToken", token, {
-          httpOnly: true,
-          secure: true,
-          sameSite: "none",
-        })
-        .status(200)
-        .json(others);
-      // .redirect("/dashboard"); // Điều hướng đến trang dashboard của người dùng
-    } else if (data[0].role === "admin") {
-      // Điều hướng người dùng đến trang dành cho admin
-      res
-        .cookie("accessToken", token, {
-          httpOnly: true,
-          secure: true,
-          sameSite: "none",
-        })
-        .status(200)
-        .json(others)
-        .redirect("/admindashboard"); // Điều hướng đến trang dashboard của admin
-    } else {
-      // Nếu không có vai trò nào khớp, trả về lỗi
-      return res.status(403).json({ error: "Unauthorized role!" });
-    }
+    res
+      .cookie("accessToken", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+      })
+      .status(200)
+      .json(others);
   });
 };
 

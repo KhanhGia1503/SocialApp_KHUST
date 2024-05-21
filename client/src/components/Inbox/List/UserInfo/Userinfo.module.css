@@ -19,3 +19,10 @@
     height: 20px;
     cursor: pointer;
 }
+.khust {
+    font-family: cursive;
+    font-size: 45px;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 30px;
+  }

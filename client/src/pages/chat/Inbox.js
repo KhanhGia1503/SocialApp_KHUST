@@ -10,7 +10,7 @@ function Inbox() {
     >
       <List className="flex-1"></List>
       <Chat></Chat>
-      <Detail></Detail>
+      {/* <Detail></Detail> */}
     </div>
   );
 }
