@@ -7,7 +7,10 @@ export const getUser = (req, res) => {
   const q = "SELECT * FROM users WHERE id=?";
 
   db.query(q, [userID], (err, data) => {
-    if (err) return res.status(500).json(err);
+    if (err) return res.status(500).json({ error: "Internal erver error" });
+    if (data.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
     const { password, ...info } = data[0];
     return res.json(info);
   });
@@ -57,7 +60,8 @@ export const changePassword = (req, res) => {
       if (data.length === 0) return res.status(404).json("User not found!");
 
       const isPasswordValid = bcrypt.compareSync(oldPassword, data[0].password);
-      if (!isPasswordValid) return res.status(401).json("Invalid old password!");
+      if (!isPasswordValid)
+        return res.status(401).json("Invalid old password!");
 
       // Hash mật khẩu mới
       const salt = bcrypt.genSaltSync(10);
