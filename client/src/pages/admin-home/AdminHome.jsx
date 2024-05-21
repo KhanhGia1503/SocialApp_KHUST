@@ -28,7 +28,7 @@ const AdminHome = () => {
           <Leftbar />
         </div>
         <div className="right">
-          <h2>All Users</h2>
+          <h2>All Users had reported</h2>
           <ul>
             {users.map((user) => (
               <li key={user.id}>
