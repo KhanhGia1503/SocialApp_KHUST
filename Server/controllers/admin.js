@@ -1,5 +1,40 @@
 import { db } from "../connect.js"
 import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs"; 
+
+export const createAdmin = () => {
+  const q = "SELECT * FROM users WHERE role = 'admin'";
+  db.query(q, (err, data) => {
+    if (err) {
+      console.error("Error checking admin existence:", err);
+      return;
+    }
+    if (data.length === 0) {
+      // Chưa có người dùng admin, tạo một người dùng admin mới
+      const hashedPassword = bcrypt.hashSync("admin123", 10); // Hash mật khẩu
+      const adminValues = [
+        "Admin",
+        "admin@gmail.com",
+        hashedPassword,
+        "Admin",
+        "gender",
+        "2003-03-15",
+        "admin",
+        "/public-images/default-profile.jpg",
+        "/public-images/default-cover.png"
+      ];
+      const insertAdminQuery =
+        "INSERT INTO users (`username`,`email`,`password`,`name`, `gender`, `birthday`, `role`, `profilePic`, `coverPic`) VALUES (?)";
+      db.query(insertAdminQuery, [adminValues], (err, result) => {
+        if (err) {
+          console.error("Error creating admin:", err);
+          return;
+        }
+        console.log("Admin user created successfully.");
+      });
+    }
+  });
+};
 
 // Middleware để kiểm tra quyền admin
 const isAdmin = (req, res, next) => {
