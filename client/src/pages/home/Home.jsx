@@ -16,25 +16,29 @@ const Home = () => {
     JSON.parse(localStorage.getItem("chat-user"))
   );
   useEffect(() => {
-    const getUser = async () => {
-      const res = await axios.get(
-        `http://localhost:8800/server/users/${currentUser.id}`,
-        { withCredentials: true }
-      );
-      setUser(res.data);
-    };
-    getUser();
+    if (!currentUser) {
+      navigate("/login");
+    } else {
+      const getUser = async () => {
+        const res = await axios.get(
+          `http://localhost:8800/server/users/${currentUser.id}`,
+          { withCredentials: true }
+        );
+        setUser(res.data);
+      };
+      getUser();
+    }
   }, []);
   return (
     <div className="home">
       {/* <Navbar user={user} /> */}
       <div className="a">
         <div className="left">
-        <Leftbar />
+          <Leftbar />
         </div>
         <div className="right">
           <CreatePost addNewPost={addNewPost} user={user} />
-          <Posts posts={posts} setPosts={setPosts} />
+          <Posts posts={posts} setPosts={setPosts} home={true} />
         </div>
       </div>
     </div>

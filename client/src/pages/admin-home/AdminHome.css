@@ -1,0 +1,21 @@
+.home{
+
+}
+.left{
+    flex: 8%;
+}
+.right{
+    flex: 50%;
+    margin-right: 4%;
+}
+.a{
+    margin-top: 10px;
+    display: flex;
+    /* position: sticky;
+    top: 0; */
+}
+
+.test{
+    flex: 6;
+    padding-bottom: 2000px;
+}

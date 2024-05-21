@@ -9,19 +9,38 @@ export const getPosts = (req, res) => {
 
   jwt.verify(token, "secretkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
+    let q;
+    let values;
 
-    console.log(userID);
+    if (userID !== undefined) {
+      q = `
+        SELECT p.*, u.id AS userID, u.username, u.profilePic
+        FROM posts AS p
+        JOIN users AS u ON u.id = p.userID
+        WHERE p.userID = ?
+        ORDER BY p.time DESC
+      `;
+      values = [userID];
+    } else {
+      q = `
+        SELECT p.*, u.id AS userID, u.username, u.profilePic
+        FROM posts AS p
+        JOIN users AS u ON u.id = p.userID
+        LEFT JOIN relationships AS r ON p.userID = r.followedUserID
+        WHERE r.followerUserID = ? OR p.userID = ?
+        ORDER BY p.time DESC
+      `;
+      values = [userInfo.id, userInfo.id];
+    }
+    // const q =
+    //   userID !== "undefined"
+    //     ? `SELECT p.*, u.id AS userID, username, profilePic FROM posts AS p JOIN users AS u ON (u.id = p.userID) WHERE p.userID = ? ORDER BY p.time DESC`
+    //     : `SELECT p.*, u.id AS userID, username, profilePic FROM posts AS p JOIN users AS u ON (u.id = p.userID)
+    // LEFT JOIN relationships AS r ON (p.userID = r.followedUserID) WHERE r.followerUserID= ? OR p.userID =?
+    // ORDER BY p.time DESC`;
 
-    const q =
-      userID !== "undefined"
-        ? `SELECT p.*, u.id AS userID, username, profilePic FROM posts AS p JOIN users AS u ON (u.id = p.userID) WHERE p.userID = ? ORDER BY p.time DESC`
-        : `SELECT p.*, u.id AS userID, username, profilePic FROM posts AS p JOIN users AS u ON (u.id = p.userID)
-    LEFT JOIN relationships AS r ON (p.userID = r.followedUserID) WHERE r.followerUserID= ? OR p.userID =?
-    ORDER BY p.time DESC`;
-
-    const values =
-      userID !== "undefined" ? [userID] : [userInfo.id, userInfo.id];
-
+    // const values =
+    //   userID !== "undefined" ? [userID] : [userInfo.id, userInfo.id];
     db.query(q, values, (err, data) => {
       if (err) return res.status(500).json(err);
       return res.status(200).json(data);
